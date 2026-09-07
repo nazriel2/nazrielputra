@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — El</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#080808;color:#eee;font-family:Manrope,Arial,sans-serif;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.32;
+  background-image:
+    linear-gradient(rgba(255,255,255,.075) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.075) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:linear-gradient(to bottom,#000,transparent 92%);
+}
+body:after{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 25%,rgba(255,255,255,.06),transparent 40%);
+}
+a{color:inherit;text-decoration:none}
+nav{
+  position:fixed;z-index:50;top:22px;left:5%;right:5%;height:48px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;border:1px solid #252525;border-radius:30px;
+  background:rgba(12,12,12,.82);backdrop-filter:blur(14px);
+}
+.logo{font:14px "DM Mono",monospace;color:#aaa}
+.links{display:flex;gap:32px;font:12px "DM Mono",monospace;color:#888}
+.links a{padding:16px 0;transition:.25s}
+.links a:hover,.links a.active{color:#fff}
+.links a.active{border-bottom:1px solid #fff}
+
+section{min-height:100vh;position:relative;padding:120px 7% 70px}
+.hero{display:flex;align-items:center;max-width:1180px;margin:auto;gap:70px}
+.hero-text{flex:1}
+.eyebrow{font:12px "DM Mono",monospace;letter-spacing:3px;color:#777;margin-bottom:24px}
+h1{font-size:clamp(58px,8vw,105px);line-height:.88;letter-spacing:-5px;font-weight:800}
+h1 span{display:block;color:#686868}
+.intro{max-width:520px;margin-top:28px;color:#888;font-size:14px;line-height:2}
+.typing{color:#ddd;font-family:"DM Mono",monospace}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.tag{
+  border:1px solid #292929;background:#111;border-radius:20px;
+  padding:7px 13px;font:11px "DM Mono",monospace;color:#aaa
+}
+.notes{margin-top:26px;color:#666;font:12px "DM Mono",monospace;line-height:2.2}
+.photo-area{width:360px;height:440px;position:relative;display:flex;align-items:center;justify-content:center}
+.card{
+  width:190px;height:245px;background:#eee;padding:10px;border-radius:10px;
+  transform:rotate(2deg);box-shadow:0 20px 70px rgba(0,0,0,.6);position:relative
+}
+.card-photo{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#1c1c1c,#555);color:#eee;
+  font-size:52px;font-weight:800;
+}
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.card:before{
+  content:"";position:absolute;width:5px;height:230px;background:#171717;
+  top:-235px;left:50%;transform:translateX(-50%);border-radius:3px
+}
+.card:after{
+  content:"3D CARD";position:absolute;top:-280px;left:calc(50% - 16px);
+  writing-mode:vertical-rl;color:#777;font:8px "DM Mono",monospace;letter-spacing:2px
+}
+.scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font:10px "DM Mono",monospace;color:#555}
+
+.title{text-align:center}
+.title h2{font-size:clamp(38px,5vw,62px);letter-spacing:-2px}
+.title p{color:#777;margin-top:12px;font-size:14px}
+.tabs{
+  max-width:620px;margin:35px auto 45px;display:grid;grid-template-columns:repeat(3,1fr);
+  padding:4px;border:1px solid #292929;background:#111;border-radius:30px
+}
+.tab{border:0;background:transparent;color:#777;padding:13px;border-radius:25px;cursor:pointer;font:12px Manrope}
+.tab.active{background:#3b3b3b;color:#fff}
+.panel{display:none;max-width:1050px;margin:auto}
+.panel.active{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:22px;
+  max-width:1000px;
+  margin:0 auto;
+}
+.project{
+  border:1px solid #292929;border-radius:20px;background:rgba(25,25,25,.72);
+  padding:14px;transition:.3s
+}
+.project:hover{transform:translateY(-6px);border-color:#555}
+.project-img{
+  height:150px;border-radius:13px;background:
+  linear-gradient(135deg,#171717,#333);display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:800;letter-spacing:-1px
+}
+.project h3{font-size:16px;margin:17px 0 8px}
+.project p{font-size:11px;color:#777;line-height:1.8}
+.project .small{font:10px "DM Mono";color:#555;margin-top:13px}
+.btn{
+  margin-top:14px;border:0;background:#eee;color:#111;border-radius:20px;
+  padding:9px 15px;font-size:11px;cursor:pointer
+}
+.certificate{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.cert{
+  border:1px solid #292929;border-radius:18px;padding:15px;background:#151515
+}
+.cert-img{
+  height:210px;border-radius:11px;background:#e8e8e8;color:#222;
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-weight:700
+}
+.cert p{font-size:12px;margin-top:13px;color:#aaa}
+.stack{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.skill{
+  padding:28px 15px;text-align:center;border:1px solid #292929;border-radius:16px;background:#151515;
+  font:13px "DM Mono";color:#aaa
+}
+.skill strong{display:block;color:#fff;font:700 24px Manrope;margin-bottom:8px}
+
+.about-wrap,.contact-wrap{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.box{
+  border:1px solid #292929;border-radius:20px;background:rgba(20,20,20,.8);padding:28px
+}
+.box h3{font-size:18px;margin-bottom:16px}
+.box p{color:#888;line-height:2;font-size:13px}
+.info{display:grid;gap:12px}
+.info div{padding:15px;border:1px solid #292929;border-radius:12px;color:#aaa;font-size:12px}
+form{display:grid;gap:12px}
+input,textarea{
+  width:100%;border:1px solid #292929;background:#111;color:#fff;
+  border-radius:12px;padding:15px;font:12px Manrope;outline:none
+}
+textarea{height:140px;resize:vertical}
+input:focus,textarea:focus{border-color:#666}
+.submit{background:#eee;color:#111;border:0;border-radius:12px;padding:14px;cursor:pointer;font-weight:700}
+.comments{margin-top:20px;display:grid;gap:10px}
+.comment{border:1px solid #292929;background:#111;border-radius:14px;padding:15px}
+.comment b{font-size:12px}.comment p{color:#777;font-size:11px;margin-top:5px}
+footer{text-align:center;color:#555;font:10px "DM Mono";padding:30px}
+
+.toast{
+  position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);
+  background:#eee;color:#111;padding:12px 18px;border-radius:25px;font-size:12px;
+  opacity:0;pointer-events:none;transition:.3s;z-index:100
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:800px){
+  nav{top:12px;left:3%;right:3%;padding:0 14px}
+  .links{gap:13px}.links a{font-size:10px}
+  section{padding:100px 5% 60px}
+  .hero{display:block}.photo-area{width:100%;height:330px;margin-top:35px}
+  .grid,.certificate{grid-template-columns:1fr}
+  .stack{grid-template-columns:repeat(2,1fr)}
+  .about-wrap,.contact-wrap{grid-template-columns:1fr}
+  h1{letter-spacing:-3px}
+}
+.project-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(12px);
+}
+
+.project-modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-box {
+    width: min(750px, 100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 24px;
+    background: #111;
+    box-shadow: 0 30px 100px rgba(0,0,0,.8);
+    animation: slideUp .35s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    background: #1b1b1b;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-label {
+    color: #777;
+    font: 11px "DM Mono", monospace;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.modal-box h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.modal-preview {
+    height: 240px;
+    border-radius: 16px;
+    background: linear-gradient(135deg,#1a1a1a,#3b3b3b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+.modal-box p {
+    color: #888;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.modal-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.modal-tech span {
+    padding: 8px 13px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    background: #181818;
+    color: #aaa;
+    font: 10px "DM Mono", monospace;
+}.cert-img {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cert-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cert-img:hover img {
+  transform: scale(1.05);
+}
+.certificate-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.certificate-modal.show {
+  display: flex;
+}
+
+.certificate-modal-box {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  animation: certZoom 0.3s ease;
+}
+
+.certificate-modal-box img {
+  width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+}
+
+.certificate-close {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+@keyframes certZoom {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tech-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.tech-modal.show {
+  display: flex;
+}
+
+.tech-modal-box {
+  width: 100%;
+  max-width: 500px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+}
+
+.tech-modal-box h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.tech-modal-box p {
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.tech-close {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+.click-item {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.click-item:hover {
+  transform: translateY(-3px);
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.photo-modal.show {
+  display: flex;
+}
+
+.photo-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+}
+
+.photo-modal-box h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.photo-modal-box img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.photo-close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+.click-item {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.click-item:hover {
+  transform: translateX(5px);
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.photo-modal.show {
+  display: flex;
+}
+
+.photo-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+}
+
+.photo-modal-box h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.photo-modal-box img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.photo-close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 10;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a class="logo" href="#home">el.dev</a>
+  <div class="links">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="home">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">AVAILABLE FOR WORK</div>
+      <h1>Frontend<span>Developer</span></h1>
+      <p class="intro">
+        <span class="typing" id="typing"></span><br>
+        Membuat website modern dengan tampilan clean, responsif, dan elegan.
+        Saya suka mengubah ide menjadi pengalaman digital yang menarik dan mudah digunakan.
+      </p>
+      <div class="tags">
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">TKJ</span>
+      </div>
+      <div class="notes">
+        ↳ explore my work below<br>
+        ↳ open to full-time & freelance opportunities
+      </div>
+    </div>
+    <div class="photo-area">
+    <div class="card">
+        <div class="card-photo">
+            <img src="foto.jpg" alt="Foto El">
+        </div>
+    </div>
+  <div class="scroll">SCROLL ↓</div>
+</section>
+
+<section id="about">
+  <div class="title">
+    <h2>About Me</h2>
+    <p>Sedikit tentang saya, kegiatan, dan hal yang saya sukai.</p>
+  </div>
+  <div class="about-wrap" style="margin-top:45px">
+    <div class="box">
+      <h3>Halo, saya El 👋</h3>
+      <p>
+        Saya adalah siswa SMK jurusan Teknik Komputer dan Jaringan (TKJ).
+        Saat ini saya sedang menjalani PKL dan terus belajar tentang komputer,
+        jaringan, troubleshooting, serta pengembangan website.
+      </p>
+      <p style="margin-top:12px">
+        Di luar kegiatan sekolah dan PKL, saya suka olahraga seperti badminton,
+        basket, dan bersepeda. Saya juga senang mengunjungi tempat-tempat bagus
+        dan mencoba pengalaman baru.
+      </p>
+    </div>
+    
+    <div class="box">
+  <h3>Favorite & Interest</h3>
+
+  <div class="info">
+
+    <div class="click-item"
+         onclick="showPhoto('makanan-minuman.jpg', 'Makanan & Minuman Favorit')">
+      🍗🥤 Makanan & Minuman favorit
+    </div>
+
+    <div class="click-item"
+         onclick="showPhoto('hobi.jpg', 'Hobi')">
+      🏸 Hobi — Badminton, Basket & Bersepeda
+    </div>
+
+    <div class="click-item"
+         onclick="showPhoto('tempat.jpg', 'Aktivitas')">
+      📍 Aktivitas — Jalan-jalan & mengunjungi tempat bagus
+    </div>
+
+    <div class="click-item"
+         onclick="showPhoto('komputer.jpg', 'Interest')">
+      💻 Interest — Komputer, jaringan, website & otomotif
+    </div>
+
+  </div>
+</div>
+</section>
+
+<section id="portfolio">
+  <div class="title">
+    <h2>Portfolio Showcase</h2>
+    <p>Eksplorasi project, pengalaman, dan kemampuan teknis saya.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-panel="projects">Projects</button>
+    <button class="tab" data-panel="certificates">Certificates</button>
+    <button class="tab" data-panel="stack">Tech Stack</button>
+  </div>
+
+  <div id="projects" class="panel active">
+    <div class="grid">
+      <article class="project">
+        <div class="project-img">PORTFOLIO</div>
+        <h3>Personal Portfolio</h3>
+        <p>Website portfolio pribadi dengan desain dark, modern, responsif, dan interaktif.</p>
+        <div class="small">HTML · CSS · JAVASCRIPT</div>
+        <button class="btn" onclick="openProject('portfolio')">Details →</button>
+      </article>
+      <article class="project">
+        <div class="project-img">NETWORK</div>
+        <h3>Network Setup</h3>
+        <p>Pengalaman melakukan konfigurasi jaringan, perangkat komputer, printer, dan troubleshooting.</p>
+        <div class="small">NETWORKING · TKJ</div>
+        <button class="btn" onclick="openProject('network')">Details →</button>
+      </article>
+      
+    </div>
+  </div>
+
+  <div id="certificates" class="panel">
+    <div class="certificate">
+      <div class="cert">
+  <div class="cert-img" onclick="openCertificate()">
+    <img src="sertifikat.jpg" alt="Sertifikat PKL">
+  </div>
+
+  <p>Sertifikat PKL / pengalaman kerja lapangan</p>
+</div>
+      <div class="cert"><div class="cert-img">BELUM<br>ADA</div><p>Sertifikat kompetensi atau pelatihan</p></div>
+    </div>
+  </div>
+
+ <div id="stack" class="panel">
+  <div class="stack">
+
+    <div class="skill" onclick="showTech('html')">
+      <strong>HTML</strong>Structure
+    </div>
+
+    <div class="skill" onclick="showTech('css')">
+      <strong>CSS</strong>Interface
+    </div>
+
+    <div class="skill" onclick="showTech('js')">
+      <strong>JS</strong>Interaction
+    </div>
+
+    <div class="skill" onclick="showTech('tkj')">
+      <strong>TKJ</strong>Networking
+    </div>
+
+  </div>
+</div>
+</section>
+
+<section id="contact">
+  <div class="title">
+    <h2>Let's Connect</h2>
+    <p>Punya pertanyaan atau ingin menghubungi saya?</p>
+  </div>
+  <div class="contact-wrap" style="margin-top:45px">
+    <div class="box">
+      <h3>Contact Me</h3>
+      <div class="info">
+        
+       <div>
+       </a>
+  ◎ Instagram —
+  <a href="https://www.instagram.com/2_nzrilll?igsi=MWtwejVpMmttb3Zrdw==/" target="_blank">
+    @2_nzrilll
+  </a>
+</div>
+       <div>
+  ◎ TikTok —
+  <a href="https://www.tiktok.com/@nzl_229" target="_blank" rel="noopener">
+    @nzl_229
+  </a>
+</div>
+<div>
+  ◎ Spotify —
+  <a href="https://open.spotify.com/user/31s5q4xoqnw6tdtg6fbmkpjj25qm?si=04a80709431c4887" target="_blank" rel="noopener">
+    Nzz
+  </a>
+</div>
+      </div>
+    </div>
+    <div class="box">
+      <h3>Leave a Comment</h3>
+      <form id="commentForm">
+        <input id="name" placeholder="Your Name" required>
+        <textarea id="message" placeholder="Your Comment" required></textarea>
+        <button class="submit">Post Comment</button>
+      </form>
+      <div class="comments" id="comments">
+        <div class="comment"><b>Visitor</b><p>Website-nya keren!</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 el.dev — Built with HTML, CSS & JavaScript</footer>
+<div class="toast" id="toast">Done</div>
+<div class="project-modal" id="projectModal">
+
+    <div class="modal-box">
+
+        <button class="modal-close" onclick="closeProject()">×</button>
+
+        <div class="modal-label" id="modalLabel">
+            PROJECT
+        </div>
+
+        <h2 id="modalTitle">
+            Project
+        </h2>
+
+        <div class="modal-preview" id="modalPreview">
+            PROJECT
+        </div>
+
+        <p id="modalDescription">
+            Deskripsi project.
+        </p>
+
+        <div class="modal-tech" id="modalTech"></div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- NO. 4: POPUP SERTIFIKAT DI SINI -->
+<div class="certificate-modal" id="certificateModal" onclick="closeCertificate()">
+  <div class="certificate-modal-box" onclick="event.stopPropagation()">
+    <button class="certificate-close" onclick="closeCertificate()">×</button>
+    <img src="sertifikat.jpg" alt="Sertifikat PKL">
+  </div>
+</div>
+<div class="tech-modal" id="techModal" onclick="closeTech()">
+  <div class="tech-modal-box" onclick="event.stopPropagation()">
+    <button class="tech-close" onclick="closeTech()">×</button>
+
+    <h2 id="techTitle">HTML</h2>
+    <p id="techDescription"></p>
+  </div>
+</div>
+
+<div class="photo-modal" id="photoModal" onclick="closePhoto()">
+  <div class="photo-modal-box" onclick="event.stopPropagation()">
+    <button class="photo-close" onclick="closePhoto()">×</button>
+
+    <h2 id="photoTitle"></h2>
+
+    <img id="photoPreview" src="" alt="Preview">
+  </div>
+</div>
+
+<script>
+function showPhoto(image, title) {
+  document.getElementById("photoPreview").src = image;
+  document.getElementById("photoTitle").textContent = title;
+  document.getElementById("photoModal").classList.add("show");
+}
+
+function closePhoto() {
+  document.getElementById("photoModal").classList.remove("show");
+}
+
+
+const techData = {
+
+  html: {
+    title: "HTML",
+    description: "HTML digunakan untuk membuat struktur dasar website, seperti teks, gambar, tombol, navigasi, dan berbagai elemen lainnya."
+  },
+
+  css: {
+    title: "CSS",
+    description: "CSS digunakan untuk mengatur tampilan website, seperti warna, ukuran, posisi, layout, animasi, dan membuat website menjadi lebih menarik."
+  },
+
+  js: {
+    title: "JAVASCRIPT",
+    description: "JavaScript digunakan untuk membuat website menjadi interaktif, seperti tombol, popup, animasi, dan berbagai fitur dinamis."
+  },
+
+  tkj: {
+    title: "TKJ",
+    description: "TKJ atau Teknik Komputer dan Jaringan mempelajari komputer, jaringan, instalasi, konfigurasi perangkat, troubleshooting, printer, CCTV, dan perangkat jaringan."
+  }
+
+};
+
+
+function showTech(type) {
+  const data = techData[type];
+
+  document.getElementById("techTitle").textContent = data.title;
+  document.getElementById("techDescription").textContent = data.description;
+
+  document.getElementById("techModal").classList.add("show");
+}
+
+function closeTech() {
+  document.getElementById("techModal").classList.remove("show");
+}
+  function openCertificate() {
+  document.getElementById("certificateModal").classList.add("show");
+}
+
+function closeCertificate() {
+  document.getElementById("certificateModal").classList.remove("show");
+}
+  const projectData = {
+    portfolio: {
+        label: "01 / PERSONAL PROJECT",
+        title: "Personal Portfolio",
+        preview: "PORTFOLIO",
+        description: "Website portfolio pribadi yang dibuat menggunakan HTML, CSS, dan JavaScript. Website ini memiliki desain dark modern, responsive layout, animasi, dan navigasi interaktif.",
+        tech: ["HTML", "CSS", "JAVASCRIPT", "RESPONSIVE"]
+    },
+
+    network: {
+        label: "02 / PKL PROJECT",
+        title: "Network Setup",
+        preview: "NETWORK",
+        description: "Project yang berkaitan dengan Teknik Komputer dan Jaringan selama kegiatan PKL, seperti konfigurasi jaringan, instalasi perangkat, troubleshooting komputer, dan printer.",
+        tech: ["NETWORKING", "TKJ", "PRINTER", "TROUBLESHOOTING"]
+    }
+};
+
+
+function openProject(project) {
+
+    const data = projectData[project];
+
+    document.getElementById("modalLabel").textContent = data.label;
+    document.getElementById("modalTitle").textContent = data.title;
+    document.getElementById("modalPreview").textContent = data.preview;
+    document.getElementById("modalDescription").textContent = data.description;
+
+    document.getElementById("modalTech").innerHTML =
+        data.tech.map(item => `<span>${item}</span>`).join("");
+
+    document.getElementById("projectModal").classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeProject() {
+
+    document.getElementById("projectModal").classList.remove("show");
+
+    document.body.style.overflow = "";
+
+}
+
+
+document.getElementById("projectModal").addEventListener("click", function(event) {
+
+    if (event.target === this) {
+        closeProject();
+    }
+
+});
+
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeProject();
+    }
+
+});
+const typing = document.getElementById("typing");
+const words = ["Junior Developer", "TKJ Student", "Web Enthusiast"];
+let wi=0, ci=0, deleting=false;
+function type(){
+  const word=words[wi];
+  typing.textContent=word.slice(0,ci);
+  if(!deleting && ci<word.length){ci++;setTimeout(type,85)}
+  else if(!deleting){deleting=true;setTimeout(type,1100)}
+  else if(ci>0){ci--;setTimeout(type,45)}
+  else{deleting=false;wi=(wi+1)%words.length;setTimeout(type,300)}
+}
+type();
+
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.panel).classList.add("active");
+  });
+});
+
+function showToast(text){
+  const t=document.getElementById("toast");t.textContent=text;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),1800);
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+const sections=[...document.querySelectorAll("section")];
+const navlinks=[...document.querySelectorAll(".links a")];
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navlinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+entry.target.id));
+    }
+  });
+},{threshold:.35});
+sections.forEach(s=>observer.observe(s));
+</script>
+<script type="module">
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA9X07bodCdNUON6tbvmsDlhbprdEnBBU4",
+    authDomain: "portofolio-el.firebaseapp.com",
+    projectId: "portofolio-el",
+    storageBucket: "portofolio-el.firebasestorage.app",
+    messagingSenderId: "44384068386",
+    appId: "1:44384068386:web:a6a4955ec88911a92f3b7b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+const commentForm = document.getElementById("commentForm");
+const commentsDiv = document.getElementById("comments");
+
+commentForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name || !message) {
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "comments"), {
+      name: name,
+      message: message,
+      createdAt: serverTimestamp()
+    });
+
+    commentForm.reset();
+
+  } catch (error) {
+    console.error("Gagal mengirim komentar:", error);
+    alert("Komentar gagal dikirim.");
+  }
+});
+
+const commentsQuery = query(
+  collection(db, "comments"),
+  orderBy("createdAt", "desc")
+);
+
+onSnapshot(commentsQuery, function(snapshot) {
+  commentsDiv.innerHTML = "";
+
+  snapshot.forEach(function(doc) {
+    const data = doc.data();
+
+    const comment = document.createElement("div");
+    comment.className = "comment";
+
+    comment.innerHTML = `
+      <b>${data.name}</b>
+      <p>${data.message}</p>
+    `;
+
+    commentsDiv.appendChild(comment);
+  });
+});
+
+  console.log("Firebase berhasil terhubung!");
+</script>
+</body>
+</html>
